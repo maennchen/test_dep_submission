@@ -19,7 +19,9 @@ defmodule Test.MixProject do
 
   defp deps do
     [
-      {:expo, "~> 1.1"}
+      {:expo, "~> 1.1"},
+      # Vulnerable: CVE-2024-31209
+      {:oidcc, "3.0.1"}
     ]
   end
 end
