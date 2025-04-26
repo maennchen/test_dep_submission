@@ -1,0 +1,22 @@
+name: "Mix Dependency Submission"
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request: {}
+
+permissions:
+  contents: write
+
+jobs:
+  report_mix_deps:
+    name: "Report Mix Dependencies"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/mix-dependency-submission@v1
+        id: submission
+      - run: cat ${{ steps.submission.outputs.submission-json-path }}
+      - uses: actions/dependency-review-action@v4
+        if: "${{ github.event_name == 'pull_request' }}"
